@@ -22,10 +22,12 @@ rm -rf /etc/cron.daily/{apt,passwd}
 RUN printf "\nUsePAM no\nPort 22\nPermitRootLogin no\nPasswordAuthentication no\nChallengeResponseAuthentication no\n" >> /etc/ssh/sshd_config && \
   cp -a /etc/ssh /etc/ssh.cache
 
+ENV TIMEZONE Brazil/East
 ENV _USER app
 ENV HOME /$_USER
 RUN adduser --disabled-password --home=$HOME --gecos "" $_USER && \
-  mkdir -p $HOME/.ssh && chmod go-w $HOME && chmod 700 $HOME/.ssh && chown $_USER:$_USER -R $HOME
+  mkdir -p $HOME/.ssh && chmod go-w $HOME && chmod 700 $HOME/.ssh && chown $_USER:$_USER -R $HOME &&\
+  rm -f /etc/localtime && ln -s /usr/share/zoneinfo/"$TIMEZONE" /etc/localtime
 
 WORKDIR $HOME
 COPY gemrc .gemrc
