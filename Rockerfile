@@ -30,6 +30,10 @@ RUN adduser --disabled-password --home=$HOME --gecos "" $_USER && \
   rm -f /etc/localtime && ln -s /usr/share/zoneinfo/"$TIMEZONE" /etc/localtime && \
   mkdir -p /var/run && touch /var/run/docker.sock && chown app:app /var/run/docker.sock
 
+# Install Rocker: https://github.com/grammarly/rocker
+ENV ROCKER_VERSION 1.1.2
+RUN curl -SL https://github.com/grammarly/rocker/releases/download/"$ROCKER_VERSION"/rocker-"$ROCKER_VERSION"-linux_amd64.tar.gz | tar -xzC /usr/local/bin && chmod +x /usr/local/bin/rocker
+
 WORKDIR $HOME
 COPY gemrc .gemrc
 ENV GEM_SPEC_CACHE "$HOME/gemspec"
