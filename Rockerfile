@@ -28,7 +28,7 @@ ENV HOME /$_USER
 RUN adduser --disabled-password --home=$HOME --gecos "" $_USER && \
   mkdir -p $HOME/.ssh && chmod go-w $HOME && chmod 700 $HOME/.ssh && chown $_USER:$_USER -R $HOME && \
   rm -f /etc/localtime && ln -s /usr/share/zoneinfo/"$TIMEZONE" /etc/localtime && \
-  mkdir -p /var/run && touch /var/run/docker.sock && chown app:app /var/run/docker.sock
+  mkdir -p /var/run && touch /var/run/docker.sock && chown $_USER:$_USER /var/run/docker.sock
 
 # Install Rocker: https://github.com/grammarly/rocker
 ENV ROCKER_VERSION 1.1.2
