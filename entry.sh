@@ -14,6 +14,9 @@ test "$(ls -A /etc/ssh)" || \
 test "$(ls -A /etc/ssh/ssh_host_*)" || \
     ssh-keygen -A
 
+test -S /var/run/docker.sock && \
+  chown $_USER:$_USER /var/run/docker.sock
+
 test -d "$HOME"/.ssh || mkdir "$HOME"/.ssh
 # Fix permissions, if writable
 test ! -w "$HOME"/.ssh && echo "WARNING: '$HOME/.ssh' is not writeable" || {
