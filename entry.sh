@@ -23,6 +23,10 @@ test ! -w "$HOME"/.ssh && echo "WARNING: '$HOME/.ssh' is not writeable" || {
   test -d "$SSH_CONFIG_VOLUME" -a "$(ls -A "$SSH_CONFIG_VOLUME")" && cp -a "$SSH_CONFIG_VOLUME"/* "$HOME"/.ssh
   chown -R $_USER:$_USER "$HOME"/.ssh && chmod 700 "$HOME"/.ssh && chmod 600 "$HOME"/.ssh/*
 }
+
+test -r "$HOME"/.ssh/docker-config.json && \
+  mkdir -p "$HOME"/.docker && ln -s ../.ssh/docker-config.json $HOME/.docker/config.json
+
 ak="$HOME"/.ssh/authorized_keys
 test ! -f "$ak" && echo "WARNING: No SSH authorized_keys found at '$ak'" || {
   echo "$ak:"; cat "$ak"
