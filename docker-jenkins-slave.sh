@@ -13,4 +13,5 @@ exec docker run --name jenkins-slave-devel \
 -v ~/data/id_rsa.pub:/app/ssh-config/authorized_keys:ro \
 -v ~/data/bitbucket-private-key:/app/ssh-config/id_rsa:ro \
 -v ~/data/jenkins-slave:/app/data \
+-v ~/data/docker-config.json:/app/ssh-config/docker-config.json:ro \
 "$IMAGE" "$@"
