@@ -1,9 +1,12 @@
-# docker-openjdk8-sshd-devel
+# quay.io/elifarley/openjdk8-sshd-devel:latest
 [![Docker Repository on Quay.io](https://quay.io/repository/elifarley/openjdk8-sshd-devel/status "Docker Repository on Quay.io")](https://quay.io/repository/elifarley/openjdk8-sshd-devel) ~ 250 MB
+
+
 
 Docker image based on 'java:openjdk-8-jre'.
 
 Adds ssh server, git and other packags suitable for building [Ruby](https://www.ruby-lang.org/en/) projects in a [Jenkins] (https://jenkins.io/) slave.
+However, Ruby itself isn't installed on this image, so you still have to rely on something like the [rbenv Jenkins plugin](https://wiki.jenkins-ci.org/display/JENKINS/Rbenv+Plugin) to install it for you.
 
 It also supports building Docker images via either Docker itself or via [Rocker](http://tech.grammarly.com/blog/posts/Making-Docker-Rock-at-Grammarly.html). They both use the Docker Unix socket mounted inside the container to talk to the parent Docker engine (the one controlling the container).
 
