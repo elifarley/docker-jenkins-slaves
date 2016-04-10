@@ -45,8 +45,8 @@ ENV LANG en_US.UTF-8
 EXPOSE 22
 #VOLUME $HOME/.rbenv
 
-COPY ../entry.sh /entry.sh
-
+ADD https://raw.githubusercontent.com/elifarley/docker-jenkins-slaves/master/entry.sh /entry.sh
+RUN chmod +x /entry.sh
 ENTRYPOINT ["/entry.sh"]
 
 CMD ["/usr/sbin/sshd", "-D", "-f", "/etc/ssh/sshd_config"]
