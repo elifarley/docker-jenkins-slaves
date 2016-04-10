@@ -1,7 +1,7 @@
 FROM frolvlad/alpine-oraclejdk8:cleaned
 MAINTAINER Elifarley Cruz <elifarley@gmail.com>
 
-RUN apk --update add --no-cache bash openssh rsync && \
+RUN apk --update add --no-cache openssh rsync curl bash && \
     rm -rf /var/cache/apk/*
 
 RUN printf "\nPort 22\nPermitRootLogin yes\nPasswordAuthentication no\nChallengeResponseAuthentication no\n" >> /etc/ssh/sshd_config && \
