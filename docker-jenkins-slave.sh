@@ -1,6 +1,6 @@
 #!/bin/bash
 set -x
-IMAGE="quay.io/elifarley/openjdk8-sshd-devel:latest"
+IMAGE="quay.io/elifarley/jenkins-slaves:alpine-openjdk-8-sshd-devel"
 docker pull "$IMAGE"
 
 DOCKER_LIBS="$(ldd $(which docker) | grep libdevmapper | cut -d' ' -f3)"
