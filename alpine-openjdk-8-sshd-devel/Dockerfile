@@ -1,4 +1,4 @@
-FROM java:openjdk-8-jre
+FROM java:openjdk-8-jdk
 MAINTAINER Elifarley Cruz <elifarley@gmail.com>
 
 ENV APT_PACKAGES "\
