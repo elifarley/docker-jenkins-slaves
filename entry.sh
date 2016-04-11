@@ -4,7 +4,7 @@ set -e
 test "$DEBUG" == 'true' && set -x
 
 DAEMON=sshd
-SSH_CONFIG_VOLUME="$HOME"/ssh-config
+SSH_CONFIG_VOLUME=/mnt-ssh-config
 
 # Copy default config from cache
 test "$(ls -A /etc/ssh)" || \
