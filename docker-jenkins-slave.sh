@@ -14,8 +14,8 @@ exec docker run --name jenkins-slave-devel \
 -d --restart=always \
 -p 2222:22 \
 $MOUNT_DOCKER \
--v ~/data/id_rsa.pub:/app/ssh-config/authorized_keys:ro \
--v ~/data/bitbucket-private-key:/app/ssh-config/id_rsa:ro \
+-v ~/data/id_rsa.pub:/mnt-ssh-config/authorized_keys:ro \
+-v ~/data/bitbucket-private-key:/mnt-ssh-config/id_rsa:ro \
 -v ~/data/jenkins-slave:/app/data \
--v ~/data/docker-config.json:/app/ssh-config/docker-config.json:ro \
+-v ~/data/docker-config.json:/mnt-ssh-config/docker-config.json:ro \
 "$IMAGE" "$@"
