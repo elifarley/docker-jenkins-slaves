@@ -14,9 +14,6 @@ test "$(ls -A /etc/ssh)" || \
 test "$(ls -A /etc/ssh/ssh_host_*)" || \
     ssh-keygen -A
 
-test -S /var/run/docker.sock && \
-  chown $_USER:$_USER /var/run/docker.sock
-
 test -d "$HOME"/.ssh || mkdir "$HOME"/.ssh
 # Fix permissions, if writable
 test ! -w "$HOME"/.ssh && echo "WARNING: '$HOME/.ssh' is not writeable" || {
@@ -32,25 +29,39 @@ test ! -f "$ak" && echo "WARNING: No SSH authorized_keys found at '$ak'" || {
   echo "$ak:"; cat "$ak"
 }
 
-stop() {
-    echo "Received SIGINT or SIGTERM. Shutting down $DAEMON"
-    # Get PID
-    pid=$(cat /var/run/$DAEMON/$DAEMON.pid)
-    # Set TERM
-    kill -SIGTERM "${pid}"
-    # Wait for exit
-    wait "${pid}"
-    # All done.
-    echo "Done."
+echo "[$_USER] Running $@"
+# If UID of coker.sock is not the same...
+test -S /var/run/docker.sock -a $(id -u $_USER) != $(stat -c "%u" /var/run/docker.sock) && {
+  docker_group=$(stat -c "%g" /var/run/docker.sock)
+  getent group "$docker_group" || addgroup -g "$docker_group" docker
+  usermod -g "$docker_group" $_USER
 }
 
-echo "Running $@"
-if [ "$(basename $1)" == "$DAEMON" ]; then
-    trap stop SIGINT SIGTERM
-    $@ &
-    pid="$!"
-    mkdir -p /var/run/$DAEMON && echo "${pid}" > /var/run/$DAEMON/$DAEMON.pid
-    wait "${pid}" && exit $?
+if test -e /data; then
+  usermod -u $(stat -c "%u" /data) $_USER
 else
-    exec "$@"
+  mkdir /data && chown $_USER:$_USER /data
+fi
+
+id $_USER
+
+# Allow running SSHD as non-root user
+if test root != "$_USER"; then
+  chown -R $_USER:$_USER /etc/ssh
+fi
+
+if [ "$(basename $1)" == "$DAEMON" ]; then
+    if test $(id -un) != "$_USER"; then
+      echo "gosu $_USER tini -- $@"
+      gosu $_USER /bin/tini -- $@
+    else
+      /bin/tini -- $@
+    fi
+    exit $?
+fi
+
+if test $(id -un) != "$_USER"; then
+  exec gosu $_USER "$@"
+else
+  "$@"
 fi
