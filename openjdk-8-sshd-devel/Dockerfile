@@ -19,7 +19,8 @@ apt-get install -y --no-install-recommends $APT_PACKAGES && \
 apt-get autoremove --purge -y && apt-get clean && \
 rm -rf /etc/cron.daily/{apt,passwd}
 
-RUN printf "\nUsePAM no\nPort 2200\nUsePrivilegeSeparation no\nPermitRootLogin no\nPasswordAuthentication no\nChallengeResponseAuthentication no\n" >> /etc/ssh/sshd_config && \
+RUN sed -i.tmp -e '/Port/d;/UsePrivilegeSeparation/d;/PermitRootLogin/d;/UsePAM/d;/PasswordAuthentication/d;/ChallengeResponseAuthentication/d;/Banner/d' /etc/ssh/sshd_config && \
+printf "\nPort 2200\nUsePrivilegeSeparation no\nPermitRootLogin no\nUsePAM no\nPasswordAuthentication no\nChallengeResponseAuthentication no\n\n#---\n" > /etc/ssh/sshd_config && cat /etc/ssh/sshd_config.tmp >> /etc/ssh/sshd_config && rm /etc/ssh/sshd_config.tmp && \
   cp -a /etc/ssh /etc/ssh.cache
 
 ENV TINI_SHA 066ad710107dc7ee05d3aa6e4974f01dc98f3888
