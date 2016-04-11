@@ -30,6 +30,7 @@ test ! -f "$ak" && echo "WARNING: No SSH authorized_keys found at '$ak'" || {
 }
 
 echo "[$_USER] Running $@"
+
 # If UID of coker.sock is not the same...
 test -S /var/run/docker.sock -a $(id -u $_USER) != $(stat -c "%u" /var/run/docker.sock) && {
   docker_group=$(stat -c "%g" /var/run/docker.sock)
@@ -48,6 +49,8 @@ id $_USER
 # Allow running SSHD as non-root user
 if test root != "$_USER"; then
   chown -R $_USER:$_USER /etc/ssh
+  test ! -d /var/run/sshd && \
+    mkdir -p /var/run/sshd && chmod 0755 /var/run/sshd
 fi
 
 if [ "$(basename $1)" == "$DAEMON" ]; then
