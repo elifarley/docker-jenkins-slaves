@@ -33,7 +33,7 @@ echo "[$_USER] Running $@"
 # If UID of coker.sock is not the same...
 test -S /var/run/docker.sock -a $(id -u $_USER) != $(stat -c "%u" /var/run/docker.sock) && {
   docker_group=$(stat -c "%g" /var/run/docker.sock)
-  getent group "$docker_group" || addgroup -g "$docker_group" docker
+  getent group "$docker_group" || groupadd -g "$docker_group" docker
   usermod -g "$docker_group" $_USER
 }
 
