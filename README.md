@@ -23,3 +23,22 @@ Which yields
 -v /lib/x86_64-linux-gnu/libdevmapper.so.1.02.1:/lib/x86_64-linux-gnu/libdevmapper.so.1.02.1:ro \
 -v /usr/bin/docker:/usr/bin/docker:ro
 ```
+
+## Private keys and Docker credentials
+
+You can mount your public key at **/app/ssh-config/authorized_keys** so that you can log in via SSH. Example:
+```bash
+-v ~/id_rsa.pub:/app/ssh-config/authorized_keys:ro
+```
+
+You can also mount a private key at **/app/ssh-config/id_rsa** so that the container can log in to Github, like this:
+
+```bash
+-v ~/github-private-key:/app/ssh-config/id_rsa:ro
+```
+
+In order to be able to push images to a Docker registry, you can mount your Docker credentials like this:
+```bash
+-v ~/.docker/config.json:/app/ssh-config/docker-config.json:ro
+```
+
