@@ -1,6 +1,9 @@
 #!/bin/bash
-set -x
-IMAGE="quay.io/elifarley/jenkins-slaves:alpine-openjdk-8-sshd-devel"
+
+#IMAGE="elifarley/docker-jenkins-slaves:alpine-jdk-8-sshd"
+#IMAGE="elifarley/docker-jenkins-slaves:alpine-openjdk-8-sshd"
+IMAGE="elifarley/docker-jenkins-slaves:openjdk-8-sshd-devel"
+
 docker pull "$IMAGE"
 
 DOCKER_LIBS="$(ldd $(which docker) | grep libdevmapper | cut -d' ' -f3)"
@@ -10,12 +13,11 @@ MOUNT_DOCKER="\
 -v $(which docker):$(which docker):ro
 "
 
-exec docker run --name jenkins-slave-devel \
+exec docker run --name jenkins-slave -p 2200:2200 \
 -d --restart=always \
--p 2222:22 \
 $MOUNT_DOCKER \
--v ~/data/id_rsa.pub:/mnt-ssh-config/authorized_keys:ro \
--v ~/data/bitbucket-private-key:/mnt-ssh-config/id_rsa:ro \
--v ~/data/jenkins-slave:/app/data \
--v ~/data/docker-config.json:/mnt-ssh-config/docker-config.json:ro \
+-v ~/.ssh/id_rsa.pub:/mnt-ssh-config/authorized_keys:ro \
+-v ~/.ssh/id_rsa:/mnt-ssh-config/id_rsa:ro \
+-v ~/.docker/config.json:/mnt-ssh-config/docker-config.json:ro \
+-v ~/data/jenkins-slave:/data \
 "$IMAGE" "$@"
