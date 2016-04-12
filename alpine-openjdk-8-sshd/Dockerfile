@@ -2,14 +2,15 @@ FROM java:openjdk-8-jdk-alpine
 MAINTAINER Elifarley Cruz <elifarley@gmail.com>
 
 ENV TZ ${TZ:-Brazil/East}
+ENV JAVA_TOOL_OPTIONS="-Duser.timezone=$TZ"
 
 RUN echo http://nl.alpinelinux.org/alpine/edge/testing >> /etc/apk/repositories && \
   apk --update add --no-cache tzdata ttf-dejavu curl openssh rsync shadow bash git && \
-  echo "TZ set to '$TZ'" && cp -a /usr/share/zoneinfo/"$TZ" /etc/localtime && apk del tzdata && \
+  echo "TZ set to '$TZ'" && echo $TZ > /etc/TZ && cp -a /usr/share/zoneinfo/"$TZ" /etc/localtime && apk del tzdata && \
   rm -rf /var/cache/apk/*
 
 RUN sed -e '/Port/d;/UsePrivilegeSeparation/d;/PermitRootLogin/d;/UsePAM/d;/PasswordAuthentication/d;/ChallengeResponseAuthentication/d;/Banner/d;/PrintMotd/d;/PrintLastLog/d' /etc/ssh/sshd_config > /etc/ssh/sshd_config.tmp && \
-printf "\nPort 2200\nUsePrivilegeSeparation no\nPermitRootLogin no\nUsePAM no\nPasswordAuthentication no\nChallengeResponseAuthentication no\nPrintMotd no\nPrintLastLog no\n#---\n" > /etc/ssh/sshd_config && cat /etc/ssh/sshd_config.tmp >> /etc/ssh/sshd_config && rm /etc/ssh/sshd_config.tmp && \
+printf "\nPort 2200\nUsePrivilegeSeparation no\nPermitRootLogin no\nPasswordAuthentication no\nChallengeResponseAuthentication no\nPrintMotd no\n#---\n" > /etc/ssh/sshd_config && cat /etc/ssh/sshd_config.tmp >> /etc/ssh/sshd_config && rm /etc/ssh/sshd_config.tmp && \
   cp -a /etc/ssh /etc/ssh.cache
 
 ENV TINI_SHA 066ad710107dc7ee05d3aa6e4974f01dc98f3888
