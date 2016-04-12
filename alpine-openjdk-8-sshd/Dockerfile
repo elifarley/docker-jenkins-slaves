@@ -1,11 +1,11 @@
 FROM java:openjdk-8-jdk-alpine
 MAINTAINER Elifarley Cruz <elifarley@gmail.com>
 
-ENV TIMEZONE Brazil/East
+ENV TZ ${TZ:-Brazil/East}
 
 RUN echo http://nl.alpinelinux.org/alpine/edge/testing >> /etc/apk/repositories && \
   apk --update add --no-cache tzdata ttf-dejavu curl openssh rsync shadow bash git && \
-  cp -a /usr/share/zoneinfo/"$TIMEZONE" /etc/localtime && apk del tzdata && \
+  echo "TZ set to '$TZ'" && cp -a /usr/share/zoneinfo/"$TZ" /etc/localtime && apk del tzdata && \
   rm -rf /var/cache/apk/*
 
 RUN sed -e '/Port/d;/UsePrivilegeSeparation/d;/PermitRootLogin/d;/UsePAM/d;/PasswordAuthentication/d;/ChallengeResponseAuthentication/d;/Banner/d;/PrintMotd/d;/PrintLastLog/d' /etc/ssh/sshd_config > /etc/ssh/sshd_config.tmp && \
@@ -24,7 +24,8 @@ RUN curl -fsSL https://github.com/krallin/tini/releases/download/v0.5.0/tini-sta
 
 # Install Rocker: https://github.com/grammarly/rocker		
 ENV ROCKER_VERSION 1.1.2		
-RUN curl -fsSL https://github.com/grammarly/rocker/releases/download/"$ROCKER_VERSION"/rocker-"$ROCKER_VERSION"-linux_amd64.tar.gz | tar -xzC /bin && chmod +x /bin/rocker
+RUN curl -fsSL https://github.com/grammarly/rocker/releases/download/"$ROCKER_VERSION"/rocker-"$ROCKER_VERSION"-linux_amd64.tar.gz | \
+  tar -xzC /usr/local/bin && chmod +x /usr/local/bin/rocker
 
 # Install Maven
 ENV MAVEN_VERSION 3.3.9
