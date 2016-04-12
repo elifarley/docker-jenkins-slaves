@@ -59,4 +59,4 @@ ADD https://raw.githubusercontent.com/elifarley/docker-jenkins-slaves/master/ent
 RUN chmod +x /entry.sh
 ENTRYPOINT ["/entry.sh"]
 
-CMD ["/usr/sbin/sshd", "-Dd", "-f", "/etc/ssh/sshd_config"]
+CMD ["/usr/sbin/sshd", "-D", "-f", "/etc/ssh/sshd_config"]
