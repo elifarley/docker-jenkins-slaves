@@ -56,9 +56,9 @@ fi
 if [ "$(basename $1)" == "$DAEMON" ]; then
     if test $(id -un) != "$_USER"; then
       echo "gosu $_USER tini -- $@"
-      gosu $_USER /bin/tini -- $@
+      gosu $_USER tini -- $@
     else
-      /bin/tini -- $@
+      tini -- $@
     fi
     exit $?
 fi
