@@ -2,7 +2,7 @@ FROM java:openjdk-8-jdk-alpine
 MAINTAINER Elifarley Cruz <elifarley@gmail.com>
 
 RUN echo http://nl.alpinelinux.org/alpine/edge/testing >> /etc/apk/repositories && \
-  apk --update add --no-cache curl openssh rsync shadow bash && \
+  apk --update add --no-cache curl openssh rsync shadow bash git && \
   rm -rf /var/cache/apk/*
 
 RUN sed -e '/Port/d;/UsePrivilegeSeparation/d;/PermitRootLogin/d;/UsePAM/d;/PasswordAuthentication/d;/ChallengeResponseAuthentication/d;/Banner/d;/PrintMotd/d;/PrintLastLog/d' /etc/ssh/sshd_config > /etc/ssh/sshd_config.tmp && \
