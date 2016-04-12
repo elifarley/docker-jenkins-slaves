@@ -26,7 +26,8 @@ RUN curl -fsSL https://github.com/grammarly/rocker/releases/download/"$ROCKER_VE
 ENV _USER app
 ENV HOME /$_USER
 RUN adduser -h "$HOME" -D $_USER && \
-  mkdir -p $HOME/.ssh && chmod go-w $HOME && chmod 700 $HOME/.ssh && chown $_USER:$_USER -R $HOME
+  mkdir -p $HOME/.ssh && chmod go-w $HOME && chmod 700 $HOME/.ssh && chown $_USER:$_USER -R $HOME && \
+  echo 'auth requisite  pam_deny.so' >> /etc/pam.d/su
 
 WORKDIR $HOME
 
