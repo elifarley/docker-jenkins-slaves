@@ -41,7 +41,7 @@ RUN curl -SL https://github.com/grammarly/rocker/releases/download/"$ROCKER_VERS
 
 ENV _USER app
 ENV HOME /$_USER
-RUN adduser --disabled-password --home=$HOME --gecos "" $_USER && \
+RUN adduser --disabled-password --home "$HOME" --shell /bin/bash --gecos "" $_USER && \
   mkdir -p $HOME/.ssh && chmod go-w $HOME && chmod 700 $HOME/.ssh && chown $_USER:$_USER -R $HOME && \
   echo 'auth requisite  pam_deny.so' > /etc/pam.d/su
 
