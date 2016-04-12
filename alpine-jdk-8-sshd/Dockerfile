@@ -5,8 +5,8 @@ RUN echo http://nl.alpinelinux.org/alpine/edge/testing >> /etc/apk/repositories 
   apk --update add --no-cache curl openssh rsync shadow bash && \
   rm -rf /var/cache/apk/*
 
-RUN sed -e '/Port/d;/UsePrivilegeSeparation/d;/PermitRootLogin/d;/UsePAM/d;/PasswordAuthentication/d;/ChallengeResponseAuthentication/d;/Banner/d' /etc/ssh/sshd_config > /etc/ssh/sshd_config.tmp && \
-printf "\nPort 2200\nUsePrivilegeSeparation no\nPermitRootLogin no\nUsePAM no\nPasswordAuthentication no\nChallengeResponseAuthentication no\n\n#---\n" > /etc/ssh/sshd_config && cat /etc/ssh/sshd_config.tmp >> /etc/ssh/sshd_config && rm /etc/ssh/sshd_config.tmp && \
+RUN sed -e '/Port/d;/UsePrivilegeSeparation/d;/PermitRootLogin/d;/UsePAM/d;/PasswordAuthentication/d;/ChallengeResponseAuthentication/d;/Banner/d;/PrintMotd/d;/PrintLastLog/d' /etc/ssh/sshd_config > /etc/ssh/sshd_config.tmp && \
+printf "\nPort 2200\nUsePrivilegeSeparation no\nPermitRootLogin no\nUsePAM no\nPasswordAuthentication no\nChallengeResponseAuthentication no\nPrintMotd no\nPrintLastLog no\n#---\n" > /etc/ssh/sshd_config && cat /etc/ssh/sshd_config.tmp >> /etc/ssh/sshd_config && rm /etc/ssh/sshd_config.tmp && \
   cp -a /etc/ssh /etc/ssh.cache
 
 ENV TINI_SHA 066ad710107dc7ee05d3aa6e4974f01dc98f3888
