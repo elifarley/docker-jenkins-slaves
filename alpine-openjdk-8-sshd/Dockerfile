@@ -4,7 +4,7 @@ MAINTAINER Elifarley Cruz <elifarley@gmail.com>
 ENV TIMEZONE Brazil/East
 
 RUN echo http://nl.alpinelinux.org/alpine/edge/testing >> /etc/apk/repositories && \
-  apk --update add --no-cache tzdata curl openssh rsync shadow bash git && \
+  apk --update add --no-cache tzdata ttf-dejavu curl openssh rsync shadow bash git && \
   cp -a /usr/share/zoneinfo/"$TIMEZONE" /etc/localtime && apk del tzdata && \
   rm -rf /var/cache/apk/*
 
