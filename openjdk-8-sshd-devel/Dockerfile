@@ -14,7 +14,10 @@ ENV RM_ITEMS "\
 "
 
 COPY apt.conf /etc/apt/apt.conf.d/local
-RUN apt-get update && apt-get -y dist-upgrade && \
+
+ENV LANG en_US.UTF-8
+RUN locale-gen $LANG && dpkg-reconfigure locales && /usr/sbin/update-locale LANG=$LANG && \
+apt-get update && apt-get -y dist-upgrade && \
 apt-get install -y --no-install-recommends $APT_PACKAGES && \
 apt-get autoremove --purge -y && apt-get clean && \
 rm -rf /etc/cron.daily/{apt,passwd}
@@ -48,7 +51,6 @@ ENV GEM_SPEC_CACHE "$HOME/gemspec"
 ENV GEM_HOME "$HOME/gem-home"
 ENV PATH "$GEM_HOME/bin:$PATH"
 
-ENV LANG en_US.UTF-8
 ENV TIMEZONE Brazil/East
 RUN rm -f /etc/localtime && ln -s /usr/share/zoneinfo/"$TIMEZONE" /etc/localtime
 
