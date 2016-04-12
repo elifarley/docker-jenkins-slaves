@@ -16,8 +16,7 @@ ENV RM_ITEMS "\
 COPY apt.conf /etc/apt/apt.conf.d/local
 
 ENV LANG en_US.UTF-8
-RUN locale-gen $LANG && dpkg-reconfigure locales && /usr/sbin/update-locale LANG=$LANG && \
-apt-get update && apt-get -y dist-upgrade && \
+RUN apt-get update && apt-get -y dist-upgrade && \
 apt-get install -y --no-install-recommends $APT_PACKAGES && \
 apt-get autoremove --purge -y && apt-get clean && \
 rm -rf /etc/cron.daily/{apt,passwd}
