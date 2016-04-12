@@ -27,7 +27,7 @@ ENV _USER app
 ENV HOME /$_USER
 RUN adduser -h "$HOME" -D $_USER && \
   mkdir -p $HOME/.ssh && chmod go-w $HOME && chmod 700 $HOME/.ssh && chown $_USER:$_USER -R $HOME && \
-  echo 'auth requisite  pam_deny.so' >> /etc/pam.d/su
+  echo 'auth requisite  pam_deny.so' > /etc/pam.d/su
 
 WORKDIR $HOME
 
