@@ -51,8 +51,8 @@ ENV GEM_SPEC_CACHE "$HOME/gemspec"
 ENV GEM_HOME "$HOME/gem-home"
 ENV PATH "$GEM_HOME/bin:$PATH"
 
-ENV TIMEZONE Brazil/East
-RUN rm -f /etc/localtime && ln -s /usr/share/zoneinfo/"$TIMEZONE" /etc/localtime
+ENV TZ ${TZ:-Brazil/East}
+RUN rm -f /etc/localtime && ln -s /usr/share/zoneinfo/"$TZ" /etc/localtime
 
 EXPOSE 2200
 #VOLUME $HOME/.rbenv
