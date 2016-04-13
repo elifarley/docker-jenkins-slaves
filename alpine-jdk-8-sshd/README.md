@@ -1,0 +1,1 @@
+[![](https://badge.imagelayers.io/elifarley/docker-jenkins-slaves:alpine-jdk-8-sshd.svg)](https://imagelayers.io/?images=elifarley/docker-jenkins-slaves:alpine-jdk-8-sshd 'Get your own badge on imagelayers.io')
