@@ -1,5 +1,5 @@
 # quay.io/elifarley/openjdk8-sshd-devel:latest
-[![Docker Repository on Quay.io](https://quay.io/repository/elifarley/openjdk8-sshd-devel/status "Docker Repository on Quay.io")](https://quay.io/repository/elifarley/openjdk8-sshd-devel) ~ 250 MB
+[![](https://badge.imagelayers.io/elifarley/docker-jenkins-slaves:openjdk-8-sshd-devel.svg)](https://imagelayers.io/?images=elifarley/docker-jenkins-slaves:openjdk-8-sshd-devel 'Get your own badge on imagelayers.io')
 
 
 
