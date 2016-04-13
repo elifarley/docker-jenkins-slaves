@@ -23,11 +23,6 @@ RUN curl -fsSL https://github.com/krallin/tini/releases/download/v0.5.0/tini-sta
   curl -fsSL https://github.com/tianon/gosu/releases/download/1.5/gosu-amd64 -o /usr/local/bin/gosu && chmod 755 /usr/local/bin/gosu && \
   echo "$GOSU_SHA  /usr/local/bin/gosu" | sha1sum -wc -
 
-# Install Rocker: https://github.com/grammarly/rocker		
-ENV ROCKER_VERSION 1.1.2		
-RUN curl -fsSL https://github.com/grammarly/rocker/releases/download/"$ROCKER_VERSION"/rocker-"$ROCKER_VERSION"-linux_amd64.tar.gz | \
-  tar -xzC /usr/local/bin && chmod +x /usr/local/bin/rocker
-
 # Install Maven
 ENV MAVEN_VERSION 3.3.9
 ENV MAVEN_SHA 5b4c117854921b527ab6190615f9435da730ba05
