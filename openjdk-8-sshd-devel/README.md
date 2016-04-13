@@ -1,4 +1,4 @@
-# quay.io/elifarley/openjdk8-sshd-devel:latest
+# elifarley/docker-jenkins-slaves:openjdk-8-sshd-devel
 [![](https://badge.imagelayers.io/elifarley/docker-jenkins-slaves:openjdk-8-sshd-devel.svg)](https://imagelayers.io/?images=elifarley/docker-jenkins-slaves:openjdk-8-sshd-devel 'Get your own badge on imagelayers.io')
 
 
