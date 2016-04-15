@@ -3,8 +3,9 @@ set -e
 
 test "$DEBUG" == 'true' && set -x
 
-DAEMON=sshd
-SSH_CONFIG_VOLUME=/mnt-ssh-config
+DAEMON="${DAEMON:-sshd}"
+SSH_CONFIG_VOLUME="${SSH_CONFIG_VOLUME:-/mnt-ssh-config}"
+MNT_DIR="${MNT_DIR:-/data}"
 
 # Copy default config from cache
 test "$(ls -A /etc/ssh)" || \
@@ -38,10 +39,10 @@ test -S /var/run/docker.sock && test $(id -u $_USER) != $(stat -c "%u" /var/run/
   usermod -g "$docker_group" $_USER
 }
 
-if test -e /data; then
-  usermod -u $(stat -c "%u" /data) $_USER
+if test -e "$MNT_DIR"; then
+  usermod -u $(stat -c "%u" "$MNT_DIR") $_USER
 else
-  mkdir /data && chown $_USER:$_USER /data
+  mkdir "$MNT_DIR" && chown $_USER:$_USER "$MNT_DIR"
 fi
 
 id $_USER
