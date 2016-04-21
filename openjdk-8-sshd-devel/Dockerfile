@@ -58,7 +58,7 @@ RUN echo "TZ set to '$TZ'" && echo $TZ > /etc/TZ && rm -f /etc/localtime && ln -
 EXPOSE 2200
 #VOLUME $HOME/.rbenv
 
-ADD https://raw.githubusercontent.com/elifarley/docker-jenkins-slaves/master/entry.sh /entry.sh
+ADD https://raw.githubusercontent.com/elifarley/docker-sshd/master/entry.sh /entry.sh
 RUN chmod +x /entry.sh
 ENTRYPOINT ["/entry.sh"]
 
