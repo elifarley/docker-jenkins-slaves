@@ -43,7 +43,7 @@ ENV LANG en_US.UTF-8
 
 EXPOSE 2200
 
-ADD https://raw.githubusercontent.com/elifarley/docker-jenkins-slaves/master/entry.sh /entry.sh
+ADD https://raw.githubusercontent.com/elifarley/docker-sshd/master/entry.sh /entry.sh
 RUN chmod +x /entry.sh
 ENTRYPOINT ["/entry.sh"]
 
