@@ -2,6 +2,7 @@ FROM elifarley/docker-dev-env:alpine-jdk-8-sshd
 MAINTAINER Elifarley Cruz <elifarley@gmail.com>
 ENV BASE_IMAGE=elifarley/docker-dev-env:alpine-jdk-8-sshd
 
+ENV DEBUG=1
 RUN \
   install-helper.sh save-image-info && \
   install-helper.sh update-pkg-list && \
