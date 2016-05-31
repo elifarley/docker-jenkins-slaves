@@ -1,4 +1,4 @@
-FROM elifarley/docker-jenkins-slaves/openjdk-8-sshd-devel
+FROM elifarley/docker-jenkins-slaves:openjdk-8-sshd-devel
 MAINTAINER elifarley@gmail.com
 
 #ENV RM_APT '/var/lib/apt/lists/* /var/lib/apt /var/lib/dpkg'
