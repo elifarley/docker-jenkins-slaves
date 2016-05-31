@@ -1,13 +1,13 @@
 FROM elifarley/docker-jenkins-slaves:openjdk-8-sshd-devel
-MAINTAINER elifarley@gmail.com
+AUTHOR Elifarley Cruz <elifarley@gmail.com>
 
 #ENV RM_APT '/var/lib/apt/lists/* /var/lib/apt /var/lib/dpkg'
 ENV RM_ITEMS '/tmp/* /var/tmp/* /var/backups/* /usr/share/man /usr/share/doc'
 
 # --- Ruby ---
-ENV APTGET_PACKAGESr="mercurial git unzip python-pip python-setuptools"
+ENV APT_PACKAGESr="mercurial git unzip python-pip python-setuptools openssl groff less"
 
-RUN echo $APTGET_PACKAGES && apt-get install -y --no-install-recommends $APTGET_PACKAGES && \
+RUN apt-get install -y --no-install-recommends $APT_PACKAGES && \
 apt-get autoremove --purge -y && apt-get clean && rm -rf $RM_ITEMS
 
 ENV RUBY_MAJOR "2.3"
@@ -44,5 +44,12 @@ EXPOSE 3000
 RUN printf "PATH=$PATH\n" >> "$HOME"/.ssh/environment && \
   printf "\ncd /data\ntest ! -d vendor/bundle && bundle install --path vendor/bundle && du -hs vendor/*\npwd" \
     >> "$HOME"/.bashrc
+
+ENV TERRAFORM_VERSION=0.6.16
+RUN curl -fsSL https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip \
+  -o /tmp/terraform.zip && \
+  unzip /tmp/terraform.zip -d /usr/local/bin \
+    terraform '*aws' terraform-provisioner-file 'terraform-provisioner-*exec' && \
+  pip install awscli
 
 RUN chown -R $_USER:$_USER "$HOME"
