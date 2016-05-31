@@ -5,9 +5,9 @@ MAINTAINER Elifarley Cruz <elifarley@gmail.com>
 ENV RM_ITEMS '/tmp/* /var/tmp/* /var/backups/* /usr/share/man /usr/share/doc'
 
 # --- Ruby ---
-ENV APT_PACKAGESr="mercurial git unzip python-pip python-setuptools openssl groff less"
+ENV APTGET_PACKAGES="mercurial git unzip python-pip python-setuptools openssl groff less"
 
-RUN apt-get install -y --no-install-recommends $APT_PACKAGES && \
+RUN apt-get install -y --no-install-recommends $APTGET_PACKAGES && \
 apt-get autoremove --purge -y && apt-get clean && rm -rf $RM_ITEMS
 
 ENV RUBY_MAJOR "2.3"
