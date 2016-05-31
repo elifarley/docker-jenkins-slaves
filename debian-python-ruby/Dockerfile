@@ -1,5 +1,5 @@
 FROM elifarley/docker-jenkins-slaves:openjdk-8-sshd-devel
-AUTHOR Elifarley Cruz <elifarley@gmail.com>
+MAINTAINER Elifarley Cruz <elifarley@gmail.com>
 
 #ENV RM_APT '/var/lib/apt/lists/* /var/lib/apt /var/lib/dpkg'
 ENV RM_ITEMS '/tmp/* /var/tmp/* /var/backups/* /usr/share/man /usr/share/doc'
