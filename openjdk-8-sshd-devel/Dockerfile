@@ -2,11 +2,10 @@ FROM elifarley/docker-dev-env:debian-openjdk-8-sshd-compiler
 MAINTAINER Elifarley Cruz <elifarley@gmail.com>
 ENV BASE_IMAGE=elifarley/docker-dev-env:debian-openjdk-8-sshd-compiler
 
-ENV APTGET_PACKAGES="lxc"
+ENV APTGET_PACKAGES=""
 
 RUN \
   xinstall save-image-info && \
-  xinstall install-pkg && \
   xinstall cleanup
 
 # Install Rocker: https://github.com/grammarly/rocker		
