@@ -9,4 +9,5 @@ RUN \
   xinstall cleanup
 
 RUN \
-  xinstall install maven3 '3.3.9' '5b4c117854921b527ab6190615f9435da730ba05'
+  xinstall install maven3 3.3.9 '5b4c117854921b527ab6190615f9435da730ba05' && \
+  xinstall install gradle 2.13 '01078159f79fbe09fc006b040886423d8736dae8'
