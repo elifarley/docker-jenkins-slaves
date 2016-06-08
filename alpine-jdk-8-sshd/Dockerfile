@@ -5,9 +5,8 @@ ENV BASE_IMAGE=elifarley/docker-dev-env:alpine-jdk-8-sshd
 RUN \
   xinstall save-image-info && \
   xinstall update-pkg-list && \
-  xinstall install-pkg git && \
+  xinstall install-pkg git 'libstdc++' && \
   xinstall cleanup
 
 RUN \
-  xinstall install maven3 3.3.9 '5b4c117854921b527ab6190615f9435da730ba05' && \
-  xinstall install gradle 2.13 '01078159f79fbe09fc006b040886423d8736dae8'
+  xinstall install maven3 3.3.9 '5b4c117854921b527ab6190615f9435da730ba05'
