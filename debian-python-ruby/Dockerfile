@@ -41,9 +41,7 @@ RUN chown -R $_USER:$_USER /usr/lib/ruby /usr/local/lib/ruby
 
 EXPOSE 3000
 
-RUN printf "PATH=$PATH\n" >> "$HOME"/.ssh/environment && \
-  printf "\ncd /data\ntest ! -d vendor/bundle && bundle install --path vendor/bundle && du -hs vendor/*\npwd" \
-    >> "$HOME"/.bashrc
+RUN printf "PATH=$PATH\n" >> "$HOME"/.ssh/environment
 
 ENV TERRAFORM_VERSION=0.6.16
 RUN curl -fsSL https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip \
