@@ -4,7 +4,6 @@ ENV BASE_IMAGE=elifarley/docker-dev-env:alpine-jdk-8-sshd
 
 RUN \
   xinstall save-image-info && \
-  xinstall update-pkg-list && \
   xinstall add-pkg git 'libstdc++' && \
   xinstall cleanup
 
