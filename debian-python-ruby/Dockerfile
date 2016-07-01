@@ -5,10 +5,11 @@ MAINTAINER Elifarley Cruz <elifarley@gmail.com>
 ENV RM_ITEMS '/tmp/* /var/tmp/* /var/backups/* /usr/share/man /usr/share/doc'
 
 # --- Ruby ---
-ENV APTGET_PACKAGES="mercurial git unzip python-pip python-setuptools openssl groff less"
+ENV APT_PACKAGES="mercurial git unzip python-pip python-setuptools openssl groff less"
 
-RUN apt-get install -y --no-install-recommends $APTGET_PACKAGES && \
-apt-get autoremove --purge -y && apt-get clean && rm -rf $RM_ITEMS
+RUN \
+  xinstall add-pkg && \
+  xinstall cleanup
 
 ENV RUBY_MAJOR "2.3"
 ENV RUBY_VERSION "2.3.0"
@@ -46,8 +47,7 @@ RUN printf "PATH=$PATH\n" >> "$HOME"/.ssh/environment
 ENV TERRAFORM_VERSION=0.6.16
 RUN curl -fsSL https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip \
   -o /tmp/terraform.zip && \
-  unzip /tmp/terraform.zip -d /usr/local/bin \
-    terraform '*aws' terraform-provisioner-file 'terraform-provisioner-*exec' && \
+  unzip /tmp/terraform.zip -d /usr/local/bin && \
   pip install awscli
 
 RUN chown -R $_USER:$_USER "$HOME"
