@@ -1,12 +1,13 @@
-FROM elifarley/docker-dev-env:alpine-jdk-8-sshd
-MAINTAINER Elifarley Cruz <elifarley@gmail.com>
-ENV BASE_IMAGE=elifarley/docker-dev-env:alpine-jdk-8-sshd
+FROM elifarley/docker-cep:alpine-jdk-8-copycontext
+MAINTAINER Elifarley <elifarley@gmail.com>
 
-COPY app*.sh $HOME/
+ARG APK_PACKAGES="openssh git libstdc++"
+
+# SSHD
+EXPOSE 2200
 
 RUN \
-  xinstall save-image-info && \
-  xinstall add-pkg git 'libstdc++' && \
+  xinstall add-pkg && \
+  xinstall configure sshd && \
   xinstall add maven3 3.3.9 && \
-  xinstall cleanup && \
-  chmod +x "$HOME"/app*.sh
+  xinstall cleanup
