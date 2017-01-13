@@ -1,9 +1,9 @@
-FROM debian:jessie
+FROM elifarley/docker-debian-jdk-8
 MAINTAINER Elifarley Cruz <elifarley@gmail.com>
-ENV BASE_IMAGE=debian:jessie
+ENV BASE_IMAGE=elifarley/docker-debian-jdk-8
 
 ENV \
-APT_PACKAGES="openssh-server rsync sudo time" \
+APT_PACKAGES="openssh-server rsync sudo time git jq" \
 TINI_VERSION='v0.13.2' \
 GOSU_VERSION='1.6' \
 _USER=app \
@@ -19,8 +19,7 @@ CMD ["/usr/sbin/sshd", "-D", "-f", "/etc/ssh/sshd_config"]
 
 WORKDIR $HOME
 
-RUN apt-get update -y && apt-get install -y curl ca-certificates && \
-curl -fsSL https://raw.githubusercontent.com/elifarley/cross-installer/master/install.sh | sh && \
+RUN curl -fsSL https://raw.githubusercontent.com/elifarley/cross-installer/master/install.sh | sh && \
   xinstall save-image-info && \
   xinstall add tini "$TINI_VERSION" && \
   xinstall add gosu "$GOSU_VERSION" && \
@@ -30,5 +29,5 @@ curl -fsSL https://raw.githubusercontent.com/elifarley/cross-installer/master/in
   xinstall add-pkg && \
   xinstall add tar && \
   xinstall configure sshd && \
-  xinstall add jdk-8-nodesktop && \
+  xinstall add maven3 3.3.9 && \
   xinstall cleanup
