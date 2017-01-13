@@ -20,7 +20,7 @@ CMD ["/usr/sbin/sshd", "-D", "-f", "/etc/ssh/sshd_config"]
 WORKDIR $HOME
 
 RUN apt-get update -y && apt-get install -y curl ca-certificates && \
-curl https://raw.githubusercontent.com/elifarley/cross-installer/master/install.sh | sh && \
+curl -fsSL https://raw.githubusercontent.com/elifarley/cross-installer/master/install.sh | sh && \
   xinstall save-image-info && \
   xinstall add tini "$TINI_VERSION" && \
   xinstall add gosu "$GOSU_VERSION" && \
