@@ -3,7 +3,7 @@ MAINTAINER Elifarley Cruz <elifarley@gmail.com>
 ENV BASE_IMAGE=debian:jessie
 
 ENV \
-APT_PACKAGES="openssh-server rsync sudo time ca-certificates curl bash" \
+APT_PACKAGES="openssh-server rsync sudo time" \
 TINI_VERSION='v0.13.2' \
 GOSU_VERSION='1.6' \
 _USER=app \
@@ -19,7 +19,8 @@ CMD ["/usr/sbin/sshd", "-D", "-f", "/etc/ssh/sshd_config"]
 
 WORKDIR $HOME
 
-RUN wget -qO- https://raw.githubusercontent.com/elifarley/cross-installer/master/install.sh | sh && \
+RUN apt-get update -y && apt-get install -y curl ca-certificates && \
+curl https://raw.githubusercontent.com/elifarley/cross-installer/master/install.sh | sh && \
   xinstall save-image-info && \
   xinstall add tini "$TINI_VERSION" && \
   xinstall add gosu "$GOSU_VERSION" && \
