@@ -9,7 +9,7 @@ gcc g++ make patch binutils libc6-dev \
   lxc python3-six python3-colorama \
 "
 
-RUN \
+RUN mkdir -p /usr/share/man/man1 /usr/share/man/man7 && \
   xinstall add-pkg && \
   xinstall configure sshd && \
   xinstall add maven3 3.3.9 && \
