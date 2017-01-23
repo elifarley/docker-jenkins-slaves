@@ -2,7 +2,7 @@
 
 for d in .bundle .jenkins/cache/jars .gradle/caches .gradle/daemon .gradle/native .gradle/wrapper; do
   test -d /data/"$d" || {
-    $sudo mkdir /data/"$d" || return
+    $sudo mkdir -p /data/"$d" || return
   }
 done
 
