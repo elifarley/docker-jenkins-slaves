@@ -1,28 +1,22 @@
 #!/bin/sh
 
-test -d /data/.bundle || {
-  $sudo mkdir /data/.bundle || return
-}
+for d in .bundle .jenkins/cache/jars .gradle/caches .gradle/daemon .gradle/native .gradle/wrapper; do
+  test -d /data/"$d" || {
+    $sudo mkdir /data/"$d" || return
+  }
+done
 
-test -L "$_home"/.bundle -a -d "$_home"/.bundle || {
-  rm -rf "$_home"/.bundle && $sudo ln -s /data/.bundle "$_home"/.bundle
-}
+for d in .bundle .jenkins .gradle/caches .gradle/daemon .gradle/native .gradle/wrapper; do
+  test -L "$_home"/"$d" -a -d "$_home"/"$d" || {
+    rm -rf "$_home/$d" && $sudo ln -s /data/"$d" "$_home/$d"
+  }
+done
 
-test -d /data/.jenkins/cache/jars || {
-  $sudo mkdir -p /data/.jenkins/cache/jars || return
-}
-
-test -L "$_home"/.jenkins -a -d "$_home"/.jenkins || {
-  rm -rf "$_home"/.jenkins && $sudo ln -s /data/.jenkins "$_home"/.jenkins
-}
-
-if test -d "$_home"/.gradle; then
-  chown "$_USER:$_USER" "$_home"/.gradle
-fi
-
-if test -d "$_home"/.docker; then
-  chown "$_USER:$_USER" "$_home"/.docker
-fi
+for d in .gradle .docker; do
+  if test -d "$_home/$d"; then
+    chown "$_USER:$_USER" "$_home/$d"
+  fi
+done
 
 echo "$_home:"; ls -Falk "$_home"
 echo "/data:"; ls -Falk /data
