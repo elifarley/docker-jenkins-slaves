@@ -6,13 +6,13 @@ for d in .gradle .docker; do
   fi
 done
 
-for d in .bundle .jenkins/cache/jars .gradle/caches .gradle/daemon .gradle/native .gradle/wrapper; do
+for d in .bundle .gem .rbenv .jenkins/cache/jars .gradle/caches .gradle/daemon .gradle/native .gradle/wrapper; do
   test -d /data/"$d" || {
     $sudo mkdir -p /data/"$d" || return
   }
 done
 
-for d in .bundle .jenkins .gradle/caches .gradle/daemon .gradle/native .gradle/wrapper; do
+for d in .bundle .gem .rbenv .jenkins .gradle/caches .gradle/daemon .gradle/native .gradle/wrapper; do
   test -L "$_home"/"$d" -a -d "$_home"/"$d" || {
     rm -rf "$_home/$d" && $sudo ln -s /data/"$d" "$_home/$d" || return
   }
