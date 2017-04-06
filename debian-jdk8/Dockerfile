@@ -1,7 +1,7 @@
 FROM elifarley/docker-cep:debian-jdk-8-copycontext
 MAINTAINER Elifarley <elifarley@gmail.com>
 
-ARG APT_PACKAGES="openssh-server time git jq"
+ARG APT_PACKAGES="openssh-server time git jq xz-utils"
 
 # SSHD
 EXPOSE 2200
