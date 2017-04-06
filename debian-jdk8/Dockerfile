@@ -12,4 +12,5 @@ RUN \
   xinstall add-pkg && \
   xinstall configure sshd && \
   xinstall add maven3 3.3.9 && \
+  xinstall add node 6.10.2 && \
   xinstall cleanup
