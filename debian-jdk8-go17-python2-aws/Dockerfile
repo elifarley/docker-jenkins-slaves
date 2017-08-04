@@ -1,7 +1,7 @@
 FROM elifarley/docker-cep:debian-jdk-8-copycontext
 MAINTAINER Elifarley Cruz <elifarley@gmail.com>
 
-ENV APT_PACKAGES="openssh-server time git jq mercurial bzip2 xz-utils \
+ENV APT_PACKAGES="openssh-server time git jq mercurial bzip2 xz-utils unzip \
 gcc g++ make patch binutils libc6-dev \
   libjemalloc-dev libffi-dev libssl-dev libyaml-dev zlib1g-dev libgmp-dev libxml2-dev \
   libxslt1-dev libreadline-dev libsqlite3-dev \
