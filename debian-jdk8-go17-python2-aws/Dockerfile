@@ -12,8 +12,8 @@ gcc g++ make patch binutils libc6-dev \
 RUN mkdir -p /usr/share/man/man1 /usr/share/man/man7 && \
   xinstall add-pkg && \
   xinstall configure sshd && \
-  xinstall add maven3 3.3.9 && \
-  xinstall add node 6.10.2 && \
-  xinstall add golang 1.7.4 && \
+  xinstall add maven3 3.5.0 && \
+  xinstall add node 6.11.2 && \
+  xinstall add golang 1.7.6 && \
   xinstall add-pkg python3-pip python3-dev && pip3 install awscli-cwlogs && xinstall remove-pkg python3-pip python3-dev && \
   xinstall cleanup
