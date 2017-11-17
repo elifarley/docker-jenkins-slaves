@@ -14,6 +14,6 @@ RUN mkdir -p /usr/share/man/man1 /usr/share/man/man7 && \
   xinstall configure sshd && \
   xinstall add maven3 3.5.0 && \
   xinstall add node 6.11.2 && \
-  xinstall add golang 1.7.6 && \
+  xinstall add golang 1.9.2 && \
   xinstall add-pkg python3-pip python3-dev && pip3 install awscli-cwlogs && xinstall remove-pkg python3-pip python3-dev && \
   xinstall cleanup
