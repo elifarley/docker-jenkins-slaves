@@ -20,3 +20,7 @@ done
 
 echo "$_home:"; ls -Falk "$_home"
 echo "/data:"; ls -Falk /data
+
+# See https://stackoverflow.com/questions/23011547/webservice-client-generation-error-with-jdk8/23012746#23012746
+jaxp_props="/usr/lib/jvm/default-jvm/jre/lib/jaxp.properties"
+grep -q 'accessExternalSchema' "$jaxp_props" 2>/dev/null || echo 'javax.xml.accessExternalSchema = all' >> "$jaxp_props"
